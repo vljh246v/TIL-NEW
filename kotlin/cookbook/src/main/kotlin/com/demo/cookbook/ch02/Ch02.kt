@@ -30,6 +30,13 @@ fun main() {
     // 2-6
     var p4 = Person("North", null, "West")
     val p4MiddleNameLength = p4.middle?.length ?: 0
+
+    // 2-7
+    val p5 = p4 as? Person
+
+    // 2-8
+    var s: String = "Hello, World!"
+    var t: String? = null
 }
 
 class Person(
