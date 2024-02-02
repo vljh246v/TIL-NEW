@@ -1,6 +1,7 @@
 package com.demo.cookbook.ch02
 
 import java.text.NumberFormat
+import kotlin.math.pow
 
 fun main() {
 
@@ -64,3 +65,15 @@ data class Product @JvmOverloads constructor(
     val price: Double = 0.0,
     val desc: String? = null
 )
+
+// 2-29
+// fun Int.pow(x: Int) = toDouble().pow(x).toInt()
+// fun Long.pow(x: Int) = toDouble().pow(x).toLong()
+
+infix fun Int.`**`(x: Int) = toDouble().pow(x).toInt()
+infix fun Long.`**`(x: Int) = toDouble().pow(x).toLong()
+infix fun Float.`**`(x: Int) = pow(x)
+infix fun Double.`**`(x: Int) = pow(x)
+
+fun Int.pow(x: Int) = `**`(x)
+fun Long.pow(x: Int) = `**`(x)
