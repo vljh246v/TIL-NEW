@@ -3,7 +3,7 @@ package com.demo.cookbook.ch03
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class Ch03KtTest {
@@ -33,10 +33,25 @@ class Ch03KtTest {
         val p1 = Product("baseball", 10.0)
         val p2 = p1.copy(price = 12.0)
 
-        Assertions.assertAll(
+        assertAll(
             { assertEquals("baseball", p2.name) },
             { MatcherAssert.assertThat(p2.price, Matchers.`is`(Matchers.closeTo(12.0, 0.01))) },
             { Assertions.assertFalse(p2.onSale) },
         )
     }
+
+    // 3-8
+    @Test
+    fun `data copy function is shallow`() {
+        val item1 = OrderItem(Product("baseball", 10.0), 5)
+        val item2 = item1.copy()
+
+        assertAll(
+            { assertTrue(item1 == item2) },
+            { assertFalse(item1 === item2) },
+            { assertTrue(item1.product == item2.product) },
+            { assertTrue(item1.product === item2.product) }
+        )
+    }
+
 }
