@@ -41,3 +41,9 @@ data class Product(
     val price: Double,
     val onSale: Boolean = false
 )
+
+// 3-7
+data class OrderItem(
+    val product: Product,
+    val quantity: Int
+)
