@@ -92,3 +92,31 @@ operator fun Complex.times(d: Double) = this.multiply(d)
 operator fun Complex.times(i: Int) = this.multiply(i)
 operator fun Double.times(c: Complex) = c.multiply(this)
 operator fun Complex.unaryMinus() = this.negate()
+
+// 3-21
+class Customer1(val name: String) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        val otherCustomer1 = (other as? Customer1) ?: return false
+        return this.name == otherCustomer1.name
+    }
+
+    override fun hashCode(): Int {
+        return name.hashCode()
+    }
+}
+
+class Customer2(val name: String) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Customer2
+
+        return name == other.name
+    }
+
+    override fun hashCode(): Int {
+        return name.hashCode()
+    }
+}
