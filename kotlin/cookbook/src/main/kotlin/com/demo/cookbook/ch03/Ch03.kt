@@ -6,6 +6,14 @@ fun main() {
     val task = Task("twosome place", 2)
     println(task.name)
     println(task.priority)
+
+    // 3-23
+    val processors = Runtime.getRuntime().availableProcessors()
+    println(processors)
+
+    // 3-27
+    println(MySingleton.myFunction())
+    println(MySingleton.myProperty)
 }
 
 // 3-1
@@ -119,4 +127,10 @@ class Customer2(val name: String) {
     override fun hashCode(): Int {
         return name.hashCode()
     }
+}
+
+// 3-25
+object MySingleton {
+    val myProperty = 3
+    fun myFunction() = "Hello"
 }
