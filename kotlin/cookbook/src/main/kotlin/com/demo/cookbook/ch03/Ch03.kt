@@ -47,3 +47,23 @@ data class OrderItem(
     val product: Product,
     val quantity: Int
 )
+
+// 3-10
+class Customer(val name: String) {
+    private var _message: List<String>? = null
+
+    val message: List<String>
+        get() {
+            if (_message == null) {
+                _message = loadMessages()
+            }
+
+            return _message!!
+        }
+
+    private fun loadMessages(): MutableList<String> = mutableListOf(
+        "Initial contact",
+        "Convinced them to use Kotlin",
+        "old training class. Sweet."
+    ).also { println("Loaded message") }
+}

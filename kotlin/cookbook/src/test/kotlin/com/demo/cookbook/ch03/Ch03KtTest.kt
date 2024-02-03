@@ -69,4 +69,10 @@ class Ch03KtTest {
         )
     }
 
+    // 3-11
+    @Test
+    fun `load messages`() {
+        val customer = Customer("Fred").apply { message }
+        assertEquals(3, customer.message.size)
+    }
 }
