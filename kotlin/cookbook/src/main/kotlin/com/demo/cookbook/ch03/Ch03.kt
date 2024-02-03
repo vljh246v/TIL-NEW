@@ -48,18 +48,20 @@ data class OrderItem(
     val quantity: Int
 )
 
-// 3-10
+// 3-10, 3-11
 class Customer(val name: String) {
     private var _message: List<String>? = null
 
-    val message: List<String>
+    /*val message: List<String>
         get() {
             if (_message == null) {
                 _message = loadMessages()
             }
 
             return _message!!
-        }
+        }*/
+
+    val message: List<String> by lazy { loadMessages() }
 
     private fun loadMessages(): MutableList<String> = mutableListOf(
         "Initial contact",
