@@ -71,3 +71,8 @@ class Customer(val name: String) {
         "old training class. Sweet."
     ).also { println("Loaded message") }
 }
+
+// 3-13
+data class Point(val x: Int, val y: Int)
+
+operator fun Point.unaryMinus() = Point(-x, -y)

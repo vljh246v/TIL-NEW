@@ -75,4 +75,11 @@ class Ch03KtTest {
         val customer = Customer("Fred").apply { message }
         assertEquals(3, customer.message.size)
     }
+
+    @Test
+    fun `unary point`() {
+        val point = Point(10, 20)
+
+        assertEquals(-point, Point(-10, -20))
+    }
 }
