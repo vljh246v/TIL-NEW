@@ -34,3 +34,10 @@ class Task2(val name: String) {
     val isLowPriority
         get() = priority < 3
 }
+
+
+data class Product(
+    val name: String,
+    val price: Double,
+    val onSale: Boolean = false
+)
