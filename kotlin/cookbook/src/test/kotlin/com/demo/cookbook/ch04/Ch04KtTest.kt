@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 
 class Ch04KtTest {
 
+    // 4-2
     @Test
     fun `sum using fold`() {
         val numbers = intArrayOf(3, 1, 4, 1, 5, 9)
@@ -12,6 +13,7 @@ class Ch04KtTest {
     }
 
 
+    // 4-3
     @Test
     fun `sum using fold with trace`() {
         val numbers = intArrayOf(3, 1, 4, 1, 5, 9)
