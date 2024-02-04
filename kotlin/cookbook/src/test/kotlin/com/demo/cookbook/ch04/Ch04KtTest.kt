@@ -10,4 +10,11 @@ class Ch04KtTest {
         val numbers = intArrayOf(3, 1, 4, 1, 5, 9)
         assertEquals(numbers.sum(), sum(*numbers))
     }
+
+
+    @Test
+    fun `sum using fold with trace`() {
+        val numbers = intArrayOf(3, 1, 4, 1, 5, 9)
+        assertEquals(numbers.sum(), sumWithTrace(*numbers))
+    }
 }
