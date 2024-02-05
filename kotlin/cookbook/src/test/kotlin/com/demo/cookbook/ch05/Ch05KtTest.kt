@@ -4,6 +4,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.contains
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import java.util.*
 
 // 5-5
 class Ch05KtTest {
@@ -22,5 +23,17 @@ class Ch05KtTest {
             println("Index $index map to $value")
             assertTrue(index in 0..5)
         }
+    }
+
+    // 5-10
+    @Test
+    internal fun `instantiating a linked list`() {
+        val list = LinkedList<Int>()
+        list.add(3)
+        list.add(1)
+        list.addLast(999)
+        list[2] = 4
+        list.addAll(listOf(1, 5, 9, 2, 6, 5))
+        assertThat(list, contains(3, 1, 4, 1, 5, 9, 2, 6, 5))
     }
 }
