@@ -25,7 +25,13 @@ fun factorialFold(n: Long): BigInteger =
         }
     }
 
+// 4-5
 fun fibonacciFold(n: Int) =
     (2 until n).fold(1 to 1) { (prev, curr), _ ->
         curr to (prev + curr)
     }.second
+
+
+// 4-7
+fun sumReduce(vararg numbs: Int) =
+    numbs.reduce { acc, i -> acc + i }
