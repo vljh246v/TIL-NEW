@@ -1,5 +1,7 @@
 package com.demo.cookbook.ch05
 
+import java.util.*
+
 class Ch05
 
 
@@ -16,3 +18,14 @@ val squares = Array(5) { i -> (i * i).toString() }
 var numList = mutableListOf(3, 1, 4, 1, 5, 9)
 var numSet = mutableSetOf(3, 1, 4, 1, 5, 9)
 var map = mutableMapOf(1 to "one", 2 to "two", 3 to "three")
+
+fun main() {
+    // 5-13
+    val keys = 'a'..'f'
+
+    val map = keys.associateWith { char ->
+        char to char.toString().repeat(5)
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+    }
+    println(map)
+}
