@@ -29,3 +29,23 @@ fun main() {
     }
     println(map)
 }
+
+
+// 5-14
+data class Product(
+    val name: String, var price: Double,
+    var onSale: Boolean = false
+)
+
+// 5-15
+fun onSaleProducts_ifEmptyCollection(products: List<Product>) =
+    products.filter { it.onSale }
+        .map { it.name }
+        .ifEmpty { listOf("none") }
+        .joinToString(separator = ", ")
+
+fun onSaleProducts_ifEmptyString(products: List<Product>) =
+    products.filter { it.onSale }
+        .map { it.name }
+        .joinToString(", ")
+        .ifEmpty { "none" }

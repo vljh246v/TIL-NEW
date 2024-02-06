@@ -2,8 +2,10 @@ package com.demo.cookbook.ch05
 
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.contains
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import java.util.*
 
 // 5-5
@@ -35,5 +37,31 @@ class Ch05KtTest {
         list[2] = 4
         list.addAll(listOf(1, 5, 9, 2, 6, 5))
         assertThat(list, contains(3, 1, 4, 1, 5, 9, 2, 6, 5))
+    }
+
+    // 5-16
+    private val overthruster = Product("Oscillation Overthruster", 1_000_000.0)
+    private val fluxcapacitro = Product("Flux Capacitor", 299_999.95, true)
+    private val tpsReportCoverSheet = Product("TPS Report Cover Sheet", 0.25)
+
+    @Test
+    fun productsOnSale() {
+        val products = listOf(overthruster, fluxcapacitro, tpsReportCoverSheet)
+        assertAll(
+            "On Sale products",
+            { assertEquals("Flux Capacitor", onSaleProducts_ifEmptyCollection(products)) },
+            { assertEquals("Flux Capacitor", onSaleProducts_ifEmptyString(products)) },
+        )
+    }
+
+    @Test
+    fun productsNotOnSale() {
+        val products = listOf(overthruster, tpsReportCoverSheet)
+        assertAll(
+            "No Products on sale",
+            { assertEquals("none", onSaleProducts_ifEmptyCollection(products)) },
+            { assertEquals("none", onSaleProducts_ifEmptyString(products)) },
+
+            )
     }
 }
