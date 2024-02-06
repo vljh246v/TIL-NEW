@@ -2,6 +2,7 @@ package com.demo.cookbook.ch05
 
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.contains
+import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -63,5 +64,24 @@ class Ch05KtTest {
             { assertEquals("none", onSaleProducts_ifEmptyString(products)) },
 
             )
+    }
+
+    // 5-17
+    @Test
+    fun `coerceIn given a range`() {
+        val range = 3..8
+        assertThat(5, `is`(5.coerceIn(range)))
+        assertThat(range.first, `is`(1.coerceIn(range)))
+        assertThat(range.last, `is`(9.coerceIn(range)))
+    }
+
+    // 5-18
+    @Test
+    fun `coerceIn given min and max`() {
+        val min = 2
+        val max = 6
+        assertThat(5, `is`(5.coerceIn(min, max)))
+        assertThat(min, `is`(1.coerceIn(min, max)))
+        assertThat(max, `is`(9.coerceIn(min, max)))
     }
 }

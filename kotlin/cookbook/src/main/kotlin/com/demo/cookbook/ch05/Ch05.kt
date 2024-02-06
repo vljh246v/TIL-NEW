@@ -49,3 +49,4 @@ fun onSaleProducts_ifEmptyString(products: List<Product>) =
         .map { it.name }
         .joinToString(", ")
         .ifEmpty { "none" }
+
