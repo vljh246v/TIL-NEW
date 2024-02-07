@@ -28,6 +28,22 @@ fun main() {
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
     println(map)
+
+    // 5-22
+    val list = listOf("a", "b", "c", "d", "e", "f", "g")
+    val (a, b, c, d, e) = list
+    println("$a $b $c $d $e")
+
+    // 5-25
+    val sorted = golfers.sortedWith(
+        compareBy({ it.score }, { it.last }, { it.first })
+    )
+    sorted.forEach { println(it) }
+
+    golfers.sortedWith(comparator)
+        .forEach { println(it) }
+    golfers.sortedWith(comparatorDesc)
+        .forEach { println(it) }
 }
 
 
@@ -50,3 +66,25 @@ fun onSaleProducts_ifEmptyString(products: List<Product>) =
         .joinToString(", ")
         .ifEmpty { "none" }
 
+// 5-24
+data class Golfer(
+    val score: Int,
+    val first: String,
+    val last: String
+)
+
+val golfers = listOf(
+    Golfer(70, "Jack", "Nicklaus"),
+    Golfer(68, "Tom", "Watson"),
+    Golfer(70, "Bubba", "Watson"),
+    Golfer(70, "Tiger", "Woods"),
+    Golfer(70, "Ty", "Weeb"),
+)
+
+val comparator = compareBy(Golfer::score)
+    .thenBy(Golfer::last)
+    .thenBy(Golfer::first)
+
+val comparatorDesc = compareByDescending(Golfer::score)
+    .thenByDescending(Golfer::last)
+    .thenByDescending(Golfer::first)
