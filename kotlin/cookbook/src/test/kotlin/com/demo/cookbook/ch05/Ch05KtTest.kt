@@ -84,4 +84,14 @@ class Ch05KtTest {
         assertThat(min, `is`(1.coerceIn(min, max)))
         assertThat(max, `is`(9.coerceIn(min, max)))
     }
+
+    // 5-19
+    @Test
+    fun chunked() {
+        val range = 0..10
+        val chunked = range.chunked(3)
+        assertThat(chunked, contains(listOf(0, 1, 2), listOf(3, 4, 5), listOf(6, 7, 8), listOf(9, 10)))
+        assertThat(range.chunked(3) { it.sum() }, `is`(listOf(3, 12, 21, 19)))
+        assertThat(range.chunked(3) { it.average() }, `is`(listOf(1.0, 4.0, 7.0, 9.5)))
+    }
 }
