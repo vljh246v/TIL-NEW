@@ -1,12 +1,12 @@
 package com.demo.cookbook.ch05
 
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.contains
-import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
+import java.time.LocalDate
 import java.util.*
 
 // 5-5
@@ -123,4 +123,21 @@ class Ch05KtTest {
 
         assertEquals("Curry, Thompson, Durant, Green, Cousins", team.map { it.name }.joinToString())
     }
+
+    // 5-35
+    @Test
+    fun `filtering instance type`() {
+        val list = listOf("a", LocalDate.now(), 3, 1, 4, "b")
+
+        val all = list.filterIsInstance<Any>()
+        val strings = list.filterIsInstance<String>()
+        val ints = list.filterIsInstance<Int>()
+        val dates = list.filterIsInstance<LocalDate>()
+
+        assertThat(all, `is`(list))
+        assertThat(strings, containsInAnyOrder("a", "b"))
+        assertThat(ints, containsInAnyOrder(1, 3, 4))
+        assertThat(dates, contains(LocalDate.now()))
+    }
+
 }
