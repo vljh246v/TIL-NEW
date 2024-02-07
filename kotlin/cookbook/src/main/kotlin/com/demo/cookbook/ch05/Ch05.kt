@@ -44,6 +44,18 @@ fun main() {
         .forEach { println(it) }
     golfers.sortedWith(comparatorDesc)
         .forEach { println(it) }
+
+    // 5-30
+    val team = Team("Warriors")
+    team.addPlayers(Player("Curry"), Player("Thompson"), Player("Durant"), Player("Green"), Player("Cousins"))
+    for (player in team.players) {
+        println(player)
+    }
+
+    // 5-31
+    for (player in team) {
+        println(player)
+    }
 }
 
 
@@ -88,3 +100,16 @@ val comparator = compareBy(Golfer::score)
 val comparatorDesc = compareByDescending(Golfer::score)
     .thenByDescending(Golfer::last)
     .thenByDescending(Golfer::first)
+
+// 5-29, 5-32
+data class Player(val name: String)
+class Team(
+    val name: String,
+    val players: MutableList<Player> = mutableListOf()
+) : Iterable<Player> {
+    fun addPlayers(vararg people: Player) = players.addAll(people)
+    override fun iterator(): Iterator<Player> = players.iterator()
+}
+
+// 5-31
+operator fun Team.iterator(): Iterator<Player> = players.iterator()
