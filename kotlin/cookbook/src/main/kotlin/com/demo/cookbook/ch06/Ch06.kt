@@ -64,3 +64,13 @@ fun primesLessThan2(max: Int): List<Int> =
     generateSequence(2, ::nextPrime)
         .takeWhile { it < max }
         .toList()
+
+// 6-11
+fun fibonacciSequence() = sequence {
+    var terms = Pair(0, 1)
+
+    while (true) {
+        yield(terms.first)
+        terms = terms.second to terms.first + terms.second
+    }
+}
