@@ -5,6 +5,19 @@ import java.util.*
 // 7-3
 fun main() {
     println(book)
+
+    // 7-9
+    val numbers = mutableListOf("one", "two", "three", "four", "five")
+    val resultList = numbers.map { it.length }.filter { it > 3 }
+    println(resultList)
+
+    numbers.map { it.length }
+        .filter { it > 3 }
+        .let {
+            println(it)
+        }
+
+    numbers.map { it.length }.filter { it > 3 }.let(::println)
 }
 
 fun createBook(): Book {
@@ -45,3 +58,4 @@ fun processNullableString(str: String?) =
             else -> str.replaceFirstChar { char -> if (char.isLowerCase()) char.titlecase(Locale.getDefault()) else char.toString() }
         }
     } ?: "Null"
+
