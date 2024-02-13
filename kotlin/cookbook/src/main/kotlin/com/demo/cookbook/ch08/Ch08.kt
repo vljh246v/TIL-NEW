@@ -1,6 +1,8 @@
 package com.demo.cookbook.ch08
 
-class Ch08 {
+fun main() {
+    println(ultimateAnswer)
+    println(ultimateAnswer)
 }
 
 // 8-1
@@ -29,3 +31,11 @@ class SmartPhone(
     private val phone: Dialable = Phone(),
     private val camera: Snappable = Camera()
 ) : Dialable by phone, Snappable by camera
+
+
+// 8-6
+
+val ultimateAnswer: Int by lazy {
+    println("computing the answer")
+    42
+}
