@@ -1,1 +1,5 @@
-spring.application.name=pad
+spring:
+  config:
+    import:
+      - classpath:properties/jpa.yaml
+      - classpath:properties/logging.yaml
