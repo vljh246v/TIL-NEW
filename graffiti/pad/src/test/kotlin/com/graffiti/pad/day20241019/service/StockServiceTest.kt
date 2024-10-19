@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
 class StockServiceTest {
-
     @Mock
     private lateinit var stockRepository: StockRepository
 
@@ -22,9 +21,10 @@ class StockServiceTest {
 
     @Test
     fun `decreaseStock should decrease stock quantity`() {
-        val stock = Stock().apply {
-            quantity = 10
-        }
+        val stock =
+            Stock().apply {
+                quantity = 10
+            }
         `when`(stockRepository.findByProductId(1L)).thenReturn(stock)
 
         stockService.decreaseStock(1L, 5L)
@@ -35,9 +35,10 @@ class StockServiceTest {
 
     @Test
     fun `decreaseStock should throw exception when stock is not enough`() {
-        val stock = Stock().apply {
-            quantity = 3
-        }
+        val stock =
+            Stock().apply {
+                quantity = 3
+            }
         `when`(stockRepository.findByProductId(1L)).thenReturn(stock)
 
         assertThrows(IllegalArgumentException::class.java) {

@@ -5,18 +5,21 @@ import org.springframework.stereotype.Service
 
 @Service
 class StockService(
-    private val stockRepository: StockRepository
+    private val stockRepository: StockRepository,
 ) {
-    fun decreaseStock(productId: Long, quantity: Long) {
+    fun decreaseStock(
+        productId: Long,
+        quantity: Long,
+    ) {
         val stock = stockRepository.findByProductId(productId)
-        stock.quantity = stock.quantity?.let {
-            if (it - quantity < 0) {
-                throw IllegalArgumentException("Stock is not enough")
-            } else {
-                it - quantity
+        stock.quantity =
+            stock.quantity?.let {
+                if (it - quantity < 0) {
+                    throw IllegalArgumentException("Stock is not enough")
+                } else {
+                    it - quantity
+                }
             }
-        }
         stockRepository.save(stock)
     }
-
 }

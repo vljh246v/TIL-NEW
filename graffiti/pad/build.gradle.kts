@@ -30,8 +30,6 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
 }
 
-
-
 kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict")
