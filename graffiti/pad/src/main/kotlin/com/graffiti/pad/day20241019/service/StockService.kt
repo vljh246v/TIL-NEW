@@ -25,7 +25,7 @@ class StockService(
     }
 
     @Transactional(readOnly = true)
-    fun getStock(productId: Long): Long {
+    fun getStockQuantity(productId: Long): Long {
         return stockRepository.findByProductId(productId).quantity ?: 0
     }
 }
