@@ -2,11 +2,13 @@ package com.graffiti.pad.day20241019.service
 
 import com.graffiti.pad.day20241019.repository.StockRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class StockService(
     private val stockRepository: StockRepository,
 ) {
+    @Transactional
     fun decreaseStock(
         productId: Long,
         quantity: Long,
@@ -22,6 +24,7 @@ class StockService(
         stockRepository.save(stock)
     }
 
+    @Transactional(readOnly = true)
     fun getStock(productId: Long): Long {
         return stockRepository.findByProductId(productId).quantity ?: 0
     }
