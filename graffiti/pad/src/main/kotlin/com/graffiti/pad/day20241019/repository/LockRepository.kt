@@ -8,6 +8,6 @@ interface LockRepository: JpaRepository<Stock, Long> {
     @Query("SELECT get_lock(:key, 3000)", nativeQuery = true)
     fun getLock(key: String)
 
-    @Query("SELECT release_lock(: key)", nativeQuery = true)
+    @Query("SELECT release_lock(:key)", nativeQuery = true)
     fun releaseLock(key: String)
 }
