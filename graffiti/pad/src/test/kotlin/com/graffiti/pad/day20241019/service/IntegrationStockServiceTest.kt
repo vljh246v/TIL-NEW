@@ -17,6 +17,8 @@ class IntegrationStockServiceTest {
     @Autowired
     private lateinit var stockService: StockService
     @Autowired
+    private lateinit var pessimisticLockStockService: PessimisticLockStockService
+    @Autowired
     private lateinit var stockRepository: StockRepository
 
 
@@ -59,6 +61,26 @@ class IntegrationStockServiceTest {
 
         // Assert
         val stock = stockService.getStockQuantity(1L)
+        assertThat(stock).isEqualTo(0L)
+    }
+
+    @Test
+    fun `decreaseStock_withHighVolumeRequests_multithreaded_pessimisticLock`() {
+        // Arrange
+        val productId = 1L
+        val decreaseQuantity = 1L
+        // Act
+        val executor = Executors.newFixedThreadPool(5)
+        repeat(100) {
+            executor.submit {
+                pessimisticLockStockService.decreaseStock(productId, decreaseQuantity)
+            }
+        }
+        executor.shutdown()
+        executor.awaitTermination(1, TimeUnit.MINUTES)
+
+        // Assert
+        val stock = pessimisticLockStockService .getStockQuantity(1L)
         assertThat(stock).isEqualTo(0L)
     }
 }
