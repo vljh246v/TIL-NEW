@@ -6,11 +6,11 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-class Stock {
+open class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    open var id: Long? = null
 
-    val productId: Long? = null
-    var quantity: Long? = null
+    open var productId: Long? = null
+    open var quantity: Long? = null
 }

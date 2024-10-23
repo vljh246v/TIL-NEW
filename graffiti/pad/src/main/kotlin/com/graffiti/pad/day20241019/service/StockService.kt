@@ -12,8 +12,7 @@ class StockService(
         quantity: Long,
     ) {
         val stock = stockRepository.findByProductId(productId)
-        stock.quantity =
-            stock.quantity?.let {
+        stock.quantity = stock.quantity?.let {
                 if (it - quantity < 0) {
                     throw IllegalArgumentException("Stock is not enough")
                 } else {
@@ -21,5 +20,9 @@ class StockService(
                 }
             }
         stockRepository.save(stock)
+    }
+
+    fun getStock(productId: Long): Long {
+        return stockRepository.findByProductId(productId).quantity ?: 0
     }
 }
