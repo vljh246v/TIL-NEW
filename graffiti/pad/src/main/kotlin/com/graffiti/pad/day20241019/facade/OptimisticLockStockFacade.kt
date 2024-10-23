@@ -1,7 +1,9 @@
 package com.graffiti.pad.day20241019.facade
 
+import org.springframework.stereotype.Service
 import com.graffiti.pad.day20241019.service.OptimisticLockStockService
 
+@Service
 class OptimisticLockStockFacade(
     private val optimisticLockStockService: OptimisticLockStockService,
 ) {
