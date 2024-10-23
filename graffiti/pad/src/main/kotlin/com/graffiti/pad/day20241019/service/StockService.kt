@@ -2,13 +2,14 @@ package com.graffiti.pad.day20241019.service
 
 import com.graffiti.pad.day20241019.repository.StockRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class StockService(
     private val stockRepository: StockRepository,
 ) {
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun decreaseStock(
         productId: Long,
         quantity: Long,
