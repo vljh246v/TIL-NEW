@@ -4,6 +4,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Version
 
 @Entity
 open class Stock {
@@ -13,4 +14,6 @@ open class Stock {
 
     open var productId: Long? = null
     open var quantity: Long? = null
+    @Version
+    open var version: Long? = null
 }
