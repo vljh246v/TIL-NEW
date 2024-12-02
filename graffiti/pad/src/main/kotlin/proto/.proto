@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package com.graffiti.pad.lib;
+
+option java_multiple_files = true;
+option java_package = "com.graffiti.pad.lib";
+option java_outer_classname = "HelloProto";
+
+service HelloProto {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}

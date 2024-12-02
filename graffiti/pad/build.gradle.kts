@@ -1,3 +1,4 @@
+import com.google.protobuf.gradle.id
 
 buildscript {
     extra.apply{
@@ -40,12 +41,13 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     runtimeOnly("com.mysql:mysql-connector-j")
     implementation("com.google.protobuf:protobuf-java-util:4.27.2")
-    implementation("com.google.protobuf:protobuf-java:4.27.2")
+    implementation("com.google.protobuf:protobuf-java:4.28.2")
 
     implementation("net.devh:grpc-client-spring-boot-starter:2.15.0.RELEASE")
     implementation("io.grpc:grpc-netty-shaded:1.65.1")
     implementation("io.grpc:grpc-protobuf:1.65.1")
     implementation("io.grpc:grpc-stub:1.65.1")
+    implementation("io.grpc:grpc-kotlin-stub:1.3.0")
     compileOnly("org.apache.tomcat:annotations-api:6.0.53")
 
 }
@@ -63,5 +65,25 @@ tasks.withType<Test> {
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc::4.27.2"
+    }
+
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.65.1"
+        }
+        id("grpckt") {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
+        }
+    }
+    generateProtoTasks {
+        all().forEach { generateProtoTasks ->
+            generateProtoTasks.plugins {
+                id("grpc")
+                id("grpckt")
+            }
+            generateProtoTasks.builtins {
+                id("kotlin")
+            }
+        }
     }
 }
