@@ -50,6 +50,10 @@ dependencies {
     implementation("io.grpc:grpc-kotlin-stub:1.3.0")
     compileOnly("org.apache.tomcat:annotations-api:6.0.53")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+
+
+
 }
 
 kotlin {
