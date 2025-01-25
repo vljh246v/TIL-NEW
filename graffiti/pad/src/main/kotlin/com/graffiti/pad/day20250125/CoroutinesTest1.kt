@@ -4,9 +4,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 
-class CoroutinesTest {
-}
-
 
 fun main(): Unit = runBlocking {
     // runBlocking을 시작한 순간 코루틴 세상으로 진입
