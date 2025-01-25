@@ -8,7 +8,20 @@ import kotlinx.coroutines.runBlocking
 class CoroutineBuilderAndJob2 {
 }
 
-fun main() : Unit = runBlocking {
+fun main(): Unit = runBlocking {
+    val job = launch {
+        (1..5).forEach {
+            printWithThread(it)
+            delay(500L)
+        }
+    }
+
+    delay(1_000L)
+    job.cancel()
+    // job 취소 가능
+}
+
+fun example2() : Unit = runBlocking {
         val job = launch(start = CoroutineStart.LAZY) {
             printWithThread("Hello launch")
         }
