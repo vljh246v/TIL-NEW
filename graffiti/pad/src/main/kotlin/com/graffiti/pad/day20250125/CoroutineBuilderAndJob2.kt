@@ -1,5 +1,6 @@
 package com.graffiti.pad.day20250125
 
+import kotlin.system.measureTimeMillis
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -11,6 +12,26 @@ class CoroutineBuilderAndJob2 {
 
 
 fun main(): Unit = runBlocking {
+    val time = measureTimeMillis {
+        val job1 = async { apiCall1() }
+        val job2 = async { apiCall2() }
+        printWithThread("Result : ${job1.await() + job2.await()}")
+    }
+    printWithThread("소요시간 : $time ms")
+    // async의 최대 장점은 callback을 활용하지 않고 동기방식으로 코드를 작성할 수 있다.
+}
+
+suspend fun apiCall1(): Int {
+    delay(1_000L)
+    return 1
+}
+
+suspend fun apiCall2(): Int {
+    delay(1_000L)
+    return 2
+}
+
+fun example5(): Unit = runBlocking {
     // async는 주어진 함수의 실행 결과를 반환할 수 있음
     val job = async {
         3 + 5
