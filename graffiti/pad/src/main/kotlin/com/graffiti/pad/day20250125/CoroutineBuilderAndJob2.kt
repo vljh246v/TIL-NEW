@@ -1,6 +1,7 @@
 package com.graffiti.pad.day20250125
 
 import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -8,7 +9,24 @@ import kotlinx.coroutines.runBlocking
 class CoroutineBuilderAndJob2 {
 }
 
+
 fun main(): Unit = runBlocking {
+    // async는 주어진 함수의 실행 결과를 반환할 수 있음
+    val job = async {
+        3 + 5
+    }
+
+    // async로 인해 만들어진 코루틴을 제엉할 수 있는 Deferred<T> 객체를 전달받음
+    // Deferred는 job을 상속받기 때문에 동일한 기능이 있고
+    // async에만 존재하는 await가 존재
+
+    val number = job.await()
+
+    // await은 async의 결괄르 가지고 올 수 있음
+    // async를 활용하면 여러 api를 실행시킬 수 있음
+}
+
+fun example4(): Unit = runBlocking {
     val job1 = launch {
         delay(1_000L)
         printWithThread("Job 1")
