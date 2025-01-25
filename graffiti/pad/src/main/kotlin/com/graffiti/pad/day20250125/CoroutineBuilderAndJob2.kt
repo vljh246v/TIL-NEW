@@ -11,6 +11,25 @@ class CoroutineBuilderAndJob2 {
 }
 
 fun main(): Unit = runBlocking {
+
+    // 만약 lazy 옵션을 준다면?
+    val time = measureTimeMillis {
+        val job1 = async(start = CoroutineStart.LAZY) { apiCall1() }
+        val job3 = async(start = CoroutineStart.LAZY) { apiCall3() }
+
+//        job1.start()
+//        job3.start()
+        printWithThread("Result : ${job1.await() + job3.await()}")
+    }
+    printWithThread("소요시간 : $time ms")
+
+    // await 함수를 호출했을때 계산 결과를 계속 기다림
+    // await() 호출 됐을때 job1을 시작학고 결과를 기다림
+    // job1이 끝나면 job3.await() 을 시작하고 결과를 기다림
+    // job1.start(), job3.start()를 호출해주면 시작상태로 변경돼있기 때문에 뒤에서 await을 시작함
+}
+
+fun example7(): Unit = runBlocking {
     /*
     apiCall1(object: Callback {
         apiCall2(object: Callback {
@@ -39,6 +58,11 @@ suspend fun apiCall1(): Int {
 suspend fun apiCall2(num: Int ): Int {
     delay(1_000L)
     return num + 2
+}
+
+suspend fun apiCall3(): Int {
+    delay(1_000L)
+    return 3
 }
 
 
