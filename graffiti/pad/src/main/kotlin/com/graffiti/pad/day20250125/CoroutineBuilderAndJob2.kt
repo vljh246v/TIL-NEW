@@ -9,6 +9,27 @@ class CoroutineBuilderAndJob2 {
 }
 
 fun main(): Unit = runBlocking {
+    val job1 = launch {
+        delay(1_000L)
+        printWithThread("Job 1")
+
+    }
+    job1.join()
+    val job2 = launch {
+        delay(1_000L)
+        printWithThread("Job 2")
+    }
+
+    // 2초가 걸리는것이 아닌 거의 동시에 종료
+    // job1이 delay 되는 동안 job2가 실행됨
+    // join을 사용하면 코루틴1이 끝날때까지 기다렸다가 그후 코루틴2를 실행
+    // join을 쓰면 코루틴이 완전히 종료될때까지 기다린다.
+    // start() : 시작신호
+    // cancle() : 취소신호
+    // join() : 코루틴이 완료될 때까지 대기
+}
+
+fun example3(): Unit = runBlocking {
     val job = launch {
         (1..5).forEach {
             printWithThread(it)
