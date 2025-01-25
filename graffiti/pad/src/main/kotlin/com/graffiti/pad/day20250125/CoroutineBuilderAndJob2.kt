@@ -10,15 +10,25 @@ import kotlinx.coroutines.runBlocking
 class CoroutineBuilderAndJob2 {
 }
 
-
 fun main(): Unit = runBlocking {
+    /*
+    apiCall1(object: Callback {
+        apiCall2(object: Callback {
+            apiCall3(object: Callback {
+                ... callback 지옥
+            })
+        })
+    })
+     */
+    // 콜잭지옥/..
+    // async를 사용하면 손쉽게 콜백지옥을 회피 가능
+
     val time = measureTimeMillis {
         val job1 = async { apiCall1() }
-        val job2 = async { apiCall2() }
-        printWithThread("Result : ${job1.await() + job2.await()}")
+        val job2 = async { apiCall2(job1.await()) }
+        printWithThread("Result : ${job2.await()}")
     }
     printWithThread("소요시간 : $time ms")
-    // async의 최대 장점은 callback을 활용하지 않고 동기방식으로 코드를 작성할 수 있다.
 }
 
 suspend fun apiCall1(): Int {
@@ -26,9 +36,20 @@ suspend fun apiCall1(): Int {
     return 1
 }
 
-suspend fun apiCall2(): Int {
+suspend fun apiCall2(num: Int ): Int {
     delay(1_000L)
-    return 2
+    return num + 2
+}
+
+
+fun example6(): Unit = runBlocking {
+    val time = measureTimeMillis {
+        val job1 = async { apiCall1() }
+        val job2 = async { apiCall2(job1.await() ) }
+        printWithThread("Result : ${job1.await() + job2.await()}")
+    }
+    printWithThread("소요시간 : $time ms")
+    // async의 최대 장점은 callback을 활용하지 않고 동기방식으로 코드를 작성할 수 있다.
 }
 
 fun example5(): Unit = runBlocking {
