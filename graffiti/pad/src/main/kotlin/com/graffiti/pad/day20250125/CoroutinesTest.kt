@@ -32,3 +32,11 @@ suspend fun newRoutine() {
 fun printWithThread(str: Any) {
     println("[${Thread.currentThread().name}] $str")
 }
+
+// 루틴
+// * 시작되면 끝날 때 가지 멈추지 않음
+// * 한번 끝나면 루틴 내의 ㅈ어보가 사라짐
+
+// 코루틴
+// 중단되었다가 재개될 수 있음
+// 중단되더라도 루틴 내의 정보가 사라지지 않음
