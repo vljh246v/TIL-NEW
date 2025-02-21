@@ -14,8 +14,29 @@ class CoroutineCancel {
 // cancle() 함수를 사용하여 코루틴을 취소할 수 있다. 하지만 취소 대상이 되는 코루틴도 협조해 주어야 한다.
 
 
-
 fun main(): Unit = runBlocking {
+    val job = launch {
+        var i = 1
+        var nextPrintTime = System.currentTimeMillis()
+        while (i <= 5) {
+            if(nextPrintTime <= System.currentTimeMillis()) {
+                printWithThread("${i++}번째 출력")
+                nextPrintTime += 1_000L
+            }
+        }
+    }
+
+    delay(100L)
+    printWithThread(" job.cancel() 실행")
+    job.cancel()
+
+    // 위 로직은 suspend 함수를 사용하지 않음
+    // 협력하는 코루틴이어야만 취소가 가능
+}
+
+
+
+fun example8(): Unit = runBlocking {
     val job1 = launch {
         delay(1_000L)
         printWithThread("Job 1")
