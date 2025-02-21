@@ -9,7 +9,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
-fun main(): Unit = runBlocking {
+fun example5(): Unit = runBlocking {
+    val job = CoroutineScope(Dispatchers.Default).launch {
+        throw IllegalArgumentException()
+    }
+
+    delay(1_000L)
+}
+
+fun example4(): Unit = runBlocking {
     val job1 = CoroutineScope(Dispatchers.Default).launch {
         delay(1_000L)
         printWithThread("Job 1")
