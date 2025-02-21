@@ -1,6 +1,7 @@
 package com.graffiti.pad.day20250221
 
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -9,6 +10,19 @@ import kotlinx.coroutines.runBlocking
 
 
 fun main(): Unit = runBlocking {
+    val job1 = CoroutineScope(Dispatchers.Default).launch {
+        delay(1_000L)
+        printWithThread("Job 1")
+    }
+
+    val job2 = CoroutineScope(Dispatchers.Default).launch {
+        delay(1_000L)
+        printWithThread("Job 2")
+    }
+}
+
+
+fun example3(): Unit = runBlocking {
     val job = launch {
         try {
             delay(1_000L)
