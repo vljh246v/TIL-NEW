@@ -1,6 +1,5 @@
 package com.graffiti.pad.day20250221
 
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -18,15 +17,15 @@ fun main(): Unit = runBlocking {
         var i = 1
         var nextPrintTime = System.currentTimeMillis()
 
-        while (i <= 5) {
+        while (isActive && i <= 5) {
             if (nextPrintTime <= System.currentTimeMillis()) {
                 printWithThread("${i++}번째 출력")
                 nextPrintTime += 1_000L
             }
 
-            if (isActive) {
-                throw CancellationException()
-            }
+//            if (isActive) {
+//                throw CancellationException()
+//            }
         }
     }
 
