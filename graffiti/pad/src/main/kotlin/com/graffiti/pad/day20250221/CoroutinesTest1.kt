@@ -1,5 +1,6 @@
 package com.graffiti.pad.day20250221
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -7,12 +8,29 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
+fun main(): Unit = runBlocking {
+    val job = launch {
+        try {
+            delay(1_000L)
+        } catch (e: CancellationException) {
+            // 아무것도 안함
+        }
+        printWithThread("delay에 의해 취소되지 않았다")
+    }
+
+    delay(100)
+    printWithThread("취소 시작")
+    job.cancel()
+}
+
+
 /*
 코루틴이 취소에 협조하는 방법
 * kotlinx.coroutines 패키지의 suspend 함수 호출
 * isActive로 CancelationException을 던지기
 */
-fun main(): Unit = runBlocking {
+
+fun example2(): Unit = runBlocking {
     val job = launch(Dispatchers.Default) {
         var i = 1
         var nextPrintTime = System.currentTimeMillis()
