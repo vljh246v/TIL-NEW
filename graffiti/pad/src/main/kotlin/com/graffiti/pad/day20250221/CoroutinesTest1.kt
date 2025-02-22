@@ -1,6 +1,7 @@
 package com.graffiti.pad.day20250221
 
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -9,6 +10,30 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+
+
+fun example9(): Unit = runBlocking {
+    // 예외 발생 이후 에러를 로깅, 에러 전파, 메시지 보내기 등 공통된 로직을 처리하고 싶다면 CoroutineExceptionHandler를 사용
+    // CoroutineExceptionHandler는 launch 에만 적용가능
+    // 부모 코루틴이 있으면 동작하지 않는다.
+    // 부모 코루틴에서 사용하려면 supervisorScope 를 사용
+    val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        printWithThread("예외 발생")
+        throw throwable
+    }
+
+    val job = CoroutineScope(Dispatchers.Default).launch(exceptionHandler) {
+        throw IllegalArgumentException()
+    }
+    /*
+    supervisorScope {
+        val job = CoroutineScope(Dispatchers.Default).launch(exceptionHandler) {
+            throw IllegalArgumentException()
+        }
+    }
+    */
+    delay(1_000L)
+}
 
 
 fun example8(): Unit = runBlocking {
