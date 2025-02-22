@@ -1,9 +1,36 @@
 package com.graffiti.pad.day20250222
 
 import com.graffiti.pad.day20250221.printWithThread
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+
+
+fun example24(): Unit = runBlocking {
+    val result1: Deferred<Int> = async {
+        call1()
+    }
+    // 이 코드는 Deferred에 의존하게 됨
+    // 다른 비동기 라이브러리를 갈아 끼울때 라이브러리 변경에 대한 여파가 미침
+
+    val result2 = async {
+        call2(result1.await())
+    }
+
+    printWithThread(result2.await())
+}
+
+fun call2(num: Int): Int {
+    Thread.sleep(1_000L)
+    return num * 2
+}
+
+fun call1(): Int {
+    Thread.sleep(1_000L)
+    return 100
+}
 
 
 fun example23(): Unit = runBlocking {
