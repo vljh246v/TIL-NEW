@@ -3,6 +3,7 @@ package com.graffiti.pad.day20250222
 import com.graffiti.pad.day20250221.printWithThread
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -23,11 +24,28 @@ import kotlinx.coroutines.launch
     * 코루틴이 어떤 스레드에 배정될지를 관리하는 역할
 */
 
-suspend fun main() {
+
+
+suspend fun example10() {
     val job = CoroutineScope(Dispatchers.Default).launch {
         delay(1_000L)
         printWithThread("Job 1")
     }
 
     job.join()
+}
+
+
+class AsyncLogic {
+    private val scope = CoroutineScope(Dispatchers.Default)
+
+    fun doSomething() {
+        scope.launch {
+            // 무언가 코루틴이 시작되어 작업!
+        }
+    }
+
+    fun destroy() {
+        scope.cancel()
+    }
 }
