@@ -11,6 +11,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
+fun example8(): Unit = runBlocking {
+    val job = launch {
+        try {
+            throw IllegalArgumentException()
+        } catch (e: IllegalArgumentException) {
+            printWithThread("정상 종료")
+        }
+    }
+
+    // 코루틴에서 예외를 다루는 방법 1 : 직관적인 try - catch - finally
+}
+
 fun example7(): Unit = runBlocking {
     val job = async(SupervisorJob()) {
         // SupervisorJob() 부모 자식 관계지만 에러가 출력되지 않음
