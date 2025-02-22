@@ -1,8 +1,11 @@
 package com.graffiti.pad.day20250222
 
+import java.util.concurrent.Executors
 import com.graffiti.pad.day20250221.printWithThread
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,10 +29,18 @@ import kotlinx.coroutines.launch
 
 
 
-suspend fun example10() {
+fun main() {
+    val threadPool = Executors.newSingleThreadExecutor()
+    CoroutineScope(threadPool.asCoroutineDispatcher()).launch {
+        printWithThread("새로운 코루틴")
+    }
+}
+
+suspend fun example11() {
     val job = CoroutineScope(Dispatchers.Default).launch {
         delay(1_000L)
         printWithThread("Job 1")
+        coroutineContext + CoroutineName("Job 1")
     }
 
     job.join()
