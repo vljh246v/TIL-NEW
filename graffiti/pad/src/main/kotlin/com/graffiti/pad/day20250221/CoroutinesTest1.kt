@@ -11,6 +11,16 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
+/*
+
+* case 1. 발생한 예외가 CancellationException인 경우
+    * 취소로 간주하고 부모 코루틴에게 전파 x
+* case 2. 발생한 예외가 CancellationException이 아닌 경우
+    * 실패로 간주하고 부모 코루틴에게 전파
+
+* 댜만 내부적으로는 취소나 실패 모두 '취소됨' 상태로 관리
+*
+ */
 
 fun example9(): Unit = runBlocking {
     // 예외 발생 이후 에러를 로깅, 에러 전파, 메시지 보내기 등 공통된 로직을 처리하고 싶다면 CoroutineExceptionHandler를 사용
