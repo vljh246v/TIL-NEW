@@ -3,6 +3,7 @@ package com.graffiti.pad.day20250221
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -10,7 +11,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
-fun main(): Unit = runBlocking {
+fun example7(): Unit = runBlocking {
+    val job = async(SupervisorJob()) {
+        // SupervisorJob() 부모 자식 관계지만 에러가 출력되지 않음
+        throw IllegalArgumentException()
+    }
+    delay(1_000L)
+    job.await()
+}
+
+
+fun example6(): Unit = runBlocking {
     val job = CoroutineScope(Dispatchers.Default).async {
         throw IllegalArgumentException()
     }
