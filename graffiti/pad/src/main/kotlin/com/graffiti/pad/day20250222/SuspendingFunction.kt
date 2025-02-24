@@ -1,9 +1,13 @@
 package com.graffiti.pad.day20250222
 
+import java.util.concurrent.CompletableFuture
 import com.graffiti.pad.day20250221.printWithThread
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.future.await
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -22,14 +26,39 @@ fun example24(): Unit = runBlocking {
     printWithThread(result2.await())
 }
 
-fun call2(num: Int): Int {
-    Thread.sleep(1_000L)
-    return num * 2
+
+fun main(): Unit = runBlocking {
+    val result1 = call1()
+    val result2 = call2(result1)
+
+    printWithThread(result2)
 }
 
-fun call1(): Int {
-    Thread.sleep(1_000L)
-    return 100
+// suspend function은 여러 비동기 라이브러리를 사용할 수 있도록 도와준다.
+
+suspend fun call2(num: Int): Int {
+    return CompletableFuture.supplyAsync {
+        Thread.sleep(1_000L) // 별도 스레드에서 실행됨
+        num * 2
+    }.await()
+}
+
+suspend fun call1(): Int {
+    return CoroutineScope(Dispatchers.Default).async {
+        Thread.sleep(1_000L) // Dispatchers.Default에서 실행됨
+        100
+    }.await()
+}
+
+interface AsyncCaller {
+    suspend fun call()
+}
+
+class AsyncCallerImpl : AsyncCaller {
+    override suspend fun call() {
+        delay(1_000L)
+        printWithThread("call")
+    }
 }
 
 
