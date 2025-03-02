@@ -5,9 +5,18 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 
 fun printWithThread(str: Any) {
     println("[${Thread.currentThread().name}] $str")
+}
+
+fun example20250302_3(): Unit = runBlocking {
+    val result: Int = withTimeout(1_000L) {
+        delay(1_5000L)
+        10 + 20
+    }
+    printWithThread(result)
 }
 
 fun example20250302_2(): Unit = runBlocking {
