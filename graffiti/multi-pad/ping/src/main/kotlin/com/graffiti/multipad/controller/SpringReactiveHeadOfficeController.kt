@@ -47,7 +47,10 @@ class SpringReactiveHeadOfficeController {
             println("# 요청 시작 시간: ${LocalDateTime.now()}")
 
             for(i in 0..5) {
-                var a = i
+                getBook(i.toLong())
+                    .subscribe { book ->
+                        println("# ${LocalDateTime.now()} 책 정보: $book")
+                    }
             }
         }
     }
