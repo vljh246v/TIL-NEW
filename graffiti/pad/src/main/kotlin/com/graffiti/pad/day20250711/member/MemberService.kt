@@ -9,4 +9,5 @@ interface MemberService {
 
     fun validate(memberId: Long)
     fun notify(newStudy: Study)
+    fun notify(newStudy: Member)
 }

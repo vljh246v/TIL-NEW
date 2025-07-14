@@ -15,6 +15,7 @@ class StudyService(
         study.owner = member
         val newStudy = studyRepository.save(study)
         memberService.notify(newStudy)
+        memberService.notify(member)
         return newStudy
     }
 }
