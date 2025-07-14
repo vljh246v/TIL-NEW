@@ -4,6 +4,8 @@ import kotlin.test.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentMatchers.anyLong
+import org.mockito.BDDMockito.given
+import org.mockito.BDDMockito.then
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.doThrow
@@ -164,17 +166,23 @@ class StudyServiceTest {
 
         val study = Study(10, "Test Study")
 
-        `when`(memberService.findById(1L)).thenReturn(member)
-        `when`(studyRepository.save(study)).thenReturn(study)
+        given(memberService.findById(1L)).willReturn(member)
+        given(studyRepository.save(study)).willReturn(study)
 
+        // When
         val createStudy = studyService.createStudy(study, 1L)
 
+
+        // Then
         assertNotNull(createStudy.name)
         assertEquals(member, createStudy.owner)
-        verify(memberService, times(1)).notify(createStudy)
-//        verifyNoMoreInteractions(memberService)
-        verify(memberService, times(1)).notify(member)
-        verify(memberService, never()).validate(anyLong())
+
+        then(memberService).should(times(1)).notify(study)
+        then(memberService).should(times(1)).notify(member)
+        then(memberService).should(never()).validate(anyLong())
+
+        then(memberService).shouldHaveNoMoreInteractions()
+        // verifyNoMoreInteractions(memberService)
 
         val inOrder = inOrder(memberService)
         inOrder.verify(memberService).notify(createStudy)
