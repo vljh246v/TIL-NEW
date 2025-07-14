@@ -12,7 +12,7 @@ class StudyService(
         val member = memberService.findById(memberId)
             ?: throw IllegalArgumentException("Member does not exist with id: $memberId")
 
-        study.setOwner(member)
+        study.owner = member
         return studyRepository.save(study)
     }
 }

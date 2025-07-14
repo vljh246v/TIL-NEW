@@ -5,9 +5,9 @@ class Study(
     val name: String,
 ) {
 
-    private var owner: Member? = null
-
-    fun setOwner(member: Member) {
-        owner = member
-    }
+    var owner: Member? = null
+        set(value) {
+            if (value != null)
+                field = value
+        }
 }

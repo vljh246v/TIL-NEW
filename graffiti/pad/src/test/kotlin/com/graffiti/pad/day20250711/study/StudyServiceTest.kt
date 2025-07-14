@@ -137,4 +137,28 @@ class StudyServiceTest {
         val second = memberService.findById(3L)
         assertNull(second)
     }
+
+    @Test
+    fun createNewStudy() {
+        // Given
+        val memberService = Mockito.mock(MemberService::class.java)
+        val studyRepository = Mockito.mock(StudyRepository::class.java)
+
+        val studyService = StudyService(studyRepository, memberService)
+
+        val member = Member()
+        member.id = 1L
+        member.email = "test@test.com"
+
+        val study = Study(10, "Test Study")
+
+        `when`(memberService.findById(1L)).thenReturn(member)
+        `when`(studyRepository.save(study)).thenReturn(study)
+
+        val createStudy = studyService.createStudy(study, 1L)
+
+        assertNotNull(createStudy.name)
+        assertEquals(member, createStudy.owner)
+
+    }
 }
