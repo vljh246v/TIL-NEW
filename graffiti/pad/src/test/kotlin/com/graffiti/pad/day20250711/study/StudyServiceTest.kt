@@ -3,8 +3,11 @@ package com.graffiti.pad.day20250711.study
 import kotlin.test.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import com.graffiti.pad.day20250711.domain.Member
@@ -95,5 +98,43 @@ class StudyServiceTest {
         val findById = memberService.findById(1L)
         assertEquals(1L, findById?.id)
         assertEquals("tes@test.com", findById?.email)
+    }
+
+    @Test
+    fun throwIllegalArgumentWhenCallValidationMethod() {
+        // Given
+        val memberService = Mockito.mock(MemberService::class.java)
+
+        // When & Then
+        doThrow(IllegalArgumentException()).`when`(memberService).validate(1L)
+
+        assertThrows(IllegalArgumentException::class.java) {
+            memberService.validate(1L)
+        }
+    }
+
+    @Test
+    fun testMemberServiceFindById() {
+        // Given
+        val memberService = Mockito.mock(MemberService::class.java)
+
+        val member = Member()
+        member.id = 1L
+        member.email = "tes@test.com"
+
+        `when`(memberService.findById(anyLong()))
+            .thenReturn(member)
+            .thenThrow(IllegalArgumentException())
+            .thenReturn(null)
+
+        val first = memberService.findById(1L)
+        assertEquals(1L, first?.id)
+
+        assertThrows(IllegalArgumentException::class.java) {
+            memberService.findById(2L)
+        }
+
+        val second = memberService.findById(3L)
+        assertNull(second)
     }
 }
