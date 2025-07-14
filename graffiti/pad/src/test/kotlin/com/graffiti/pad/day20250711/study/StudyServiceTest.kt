@@ -12,12 +12,11 @@ import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.inOrder
 import org.mockito.Mockito.never
 import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import com.graffiti.pad.day20250711.domain.Member
 import com.graffiti.pad.day20250711.domain.Study
+import com.graffiti.pad.day20250711.domain.StudyStatus
 import com.graffiti.pad.day20250711.member.MemberService
 
 @ExtendWith(MockitoExtension::class)
@@ -187,5 +186,31 @@ class StudyServiceTest {
         val inOrder = inOrder(memberService)
         inOrder.verify(memberService).notify(createStudy)
         inOrder.verify(memberService).notify(member)
+    }
+
+    @Test
+    fun openStudy() {
+        // Given
+        val memberService = Mockito.mock(MemberService::class.java)
+        val studyRepository = Mockito.mock(StudyRepository::class.java)
+
+        val studyService = StudyService(studyRepository, memberService)
+
+        val member = Member()
+        member.id = 1L
+        member.email = "test@test.com"
+
+        val study = Study(10, "Test Study")
+        given(studyRepository.save(study)).willReturn(study)
+
+        // When
+
+        val openStudy = studyService.openStudy(study)
+
+        // Then
+        assertNotNull(openStudy)
+        assertEquals(StudyStatus.OPENED, study.status)
+        assertNotNull(openStudy.openedDateTime)
+        then(memberService).should(times(1)).notify(study)
     }
 }
