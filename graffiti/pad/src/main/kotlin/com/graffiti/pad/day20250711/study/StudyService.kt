@@ -18,4 +18,11 @@ class StudyService(
         memberService.notify(member)
         return newStudy
     }
+
+    fun openStudy(study: Study): Study {
+        study.open()
+        val openStudy = studyRepository.save(study)
+        memberService.notify(openStudy)
+        return openStudy
+    }
 }
