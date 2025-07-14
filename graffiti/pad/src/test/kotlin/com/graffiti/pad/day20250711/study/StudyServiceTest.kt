@@ -3,11 +3,12 @@ package com.graffiti.pad.day20250711.study
 import kotlin.test.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.doThrow
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import com.graffiti.pad.day20250711.domain.Member
@@ -26,6 +27,10 @@ class StudyServiceTest {
             }
 
             override fun validate(memberId: Long) {
+                TODO("Not yet implemented")
+            }
+
+            override fun notify(newStudy: Study) {
                 TODO("Not yet implemented")
             }
         }
@@ -159,6 +164,7 @@ class StudyServiceTest {
 
         assertNotNull(createStudy.name)
         assertEquals(member, createStudy.owner)
+        verify(memberService, times(1)).notify(createStudy)
 
     }
 }
