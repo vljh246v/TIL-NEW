@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import com.graffiti.pad.day20250711.domain.Member
 import com.graffiti.pad.day20250711.domain.Study
@@ -19,6 +20,10 @@ class StudyServiceTest {
         val memberService = object : MemberService {
             override fun findById(id: Long): Member? {
                 return null
+            }
+
+            override fun validate(memberId: Long) {
+                TODO("Not yet implemented")
             }
         }
 
@@ -58,5 +63,37 @@ class StudyServiceTest {
 
         // Then
         assertNotNull(studyService)
+    }
+
+    @Test
+    fun testMockitoDefaultReturnValue() {
+        // Given
+        val memberService = Mockito.mock(MemberService::class.java)
+        val studyRepository = Mockito.mock(StudyRepository::class.java)
+
+        // When
+        val member = memberService.findById(1L)
+        memberService.validate(2L)
+
+        // Then
+        assertNull(member)
+    }
+
+    @Test
+    fun createMember() {
+        // Given
+        val memberService = Mockito.mock(MemberService::class.java)
+
+        val member = Member()
+        member.id = 1L
+        member.email = "tes@test.com"
+
+        // When
+        `when`(memberService.findById(1L)).thenReturn(member)
+
+        // Then
+        val findById = memberService.findById(1L)
+        assertEquals(1L, findById?.id)
+        assertEquals("tes@test.com", findById?.email)
     }
 }
