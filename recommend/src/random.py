@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from models import RecommendResult, Dataset
+=======
+from utils.models import RecommendResult, Dataset
+>>>>>>> 069334b (commit 처리)
 from base_recommender import BaseRecommender
 from collections import defaultdict
 import numpy as np
