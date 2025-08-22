@@ -1,11 +1,9 @@
 void main() {
-  var name = '임재현';
-  print(name);
+  int number1 = 2;
+  int number2 = 4;
 
-  var name2 = '임재현2';
-
-  print(name2);
-
-  name = '임재현1';
-  print(name);
+  print(number1 + number2);
+  print(number1 - number2);
+  print(number1 * number2);
+  print(number1 / number2);
 }
