@@ -1,15 +1,9 @@
 void main() {
-  dynamic name = '소녀시대';
+  String name = '임재현';
   print(name);
-  dynamic number = 1;
-  print(number);
 
-  var name2 = '티파니';
+  String? name2 = '티파니';
+  print(name2!);
+  name2 = null;
   print(name2);
-
-  print(name.runtimeType);
-  print(number.runtimeType);
-
-  name = 2;
-  print(name.runtimeType);
 }
