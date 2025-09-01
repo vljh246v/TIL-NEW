@@ -1,9 +1,10 @@
 void main() {
-  String name = '임재현';
+  final String name = '임재현';
   print(name);
+  // name = '임재현1'; // This line will cause an error because 'name' is final
 
-  String? name2 = '티파니';
-  print(name2!);
-  name2 = null;
+  const String name2 = '티파니';
   print(name2);
+
+  // name2 = '티파니2'; // This line will cause an error because 'name2' is const
 }
