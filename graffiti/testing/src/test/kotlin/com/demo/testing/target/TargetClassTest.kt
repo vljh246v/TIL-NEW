@@ -80,4 +80,10 @@ class TargetClassTest {
         assertThat(targetClass.substringBetween("a<st>mid<en>b<st>mid2<en>", "<st>", "<en>"))
             .isEqualTo(arrayOf("mid", "mid2"))
     }
+
+    @Test
+    fun nuSubstringBetweenOpenAndCloseTags() {
+        assertThat(targetClass.substringBetween("aabb", "aa", "bb"))
+            .isEqualTo(arrayOf(""))
+    }
 }
