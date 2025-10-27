@@ -6,7 +6,7 @@ class TargetClass {
     }
 
     fun substringBetween(str: String?, open: String?, close: String?): Array<String>? {
-        if (str == null || open?.isEmpty() == true || close?.isEmpty() == true) {
+        if (str == null || open.isNullOrEmpty() || close.isNullOrEmpty()) {
             return null
         }
 
@@ -15,8 +15,8 @@ class TargetClass {
             return EMPTY_STRING_ARRAY
         }
 
-        val closeLen = close!!.length
-        val openLen = open!!.length
+        val closeLen = close.length
+        val openLen = open.length
         val list = mutableListOf<String>()
         var pos = 0
 
@@ -24,7 +24,7 @@ class TargetClass {
             var start = str.indexOf(open, pos)
 
             if (start < 0) {
-               break
+                break
             }
 
             start += openLen

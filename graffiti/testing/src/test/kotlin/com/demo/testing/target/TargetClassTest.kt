@@ -34,5 +34,21 @@ class TargetClassTest {
             .isEqualTo(arrayOf<String>())
     }
 
+    @Test
+    fun openIsNullOrEmpty() {
+        assertThat(targetClass.substringBetween("abc", null, "b"))
+            .isEqualTo(null)
+        assertThat(targetClass.substringBetween("abc", "", "b"))
+            .isEqualTo(null)
+    }
+
+    @Test
+    fun closeIsNullOrEmpty() {
+        assertThat(targetClass.substringBetween("abc", "a", null))
+            .isEqualTo(null)
+        assertThat(targetClass.substringBetween("abc", "a", ""))
+            .isEqualTo(null)
+    }
+
 
 }
