@@ -50,5 +50,20 @@ class TargetClassTest {
             .isEqualTo(null)
     }
 
+    @Test
+    fun strOfLength1() {
+        assertThat(targetClass.substringBetween("a", "a", "b")).isEqualTo(null)
+        assertThat(targetClass.substringBetween("a", "b", "a")).isEqualTo(null)
+        assertThat(targetClass.substringBetween("a", "b", "b")).isEqualTo(null)
+        assertThat(targetClass.substringBetween("a", "a", "a")).isEqualTo(null)
+    }
 
+    @Test
+    fun openAndCloseOfLength1() {
+        assertThat(targetClass.substringBetween("abc", "x", "y")).isEqualTo(null)
+        assertThat(targetClass.substringBetween("abc", "a", "y")).isEqualTo(null)
+        assertThat(targetClass.substringBetween("abc", "x", "c")).isEqualTo(null)
+        assertThat(targetClass.substringBetween("abc", "a", "c")).isEqualTo(arrayOf("b"))
+        assertThat(targetClass.substringBetween("abcabc", "a", "c")).isEqualTo(arrayOf("b", "b"))
+    }
 }
