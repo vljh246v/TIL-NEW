@@ -2,3 +2,7 @@
 
 recommend/ml-10M100K/*
 recommend/ml-10m.zip
+recommend/ratings.dat
+recommend/movies.dat
+recommend/ml-latest-small/*
+recommend/data/*
