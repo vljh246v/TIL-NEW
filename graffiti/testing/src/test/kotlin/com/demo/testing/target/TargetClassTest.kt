@@ -66,4 +66,18 @@ class TargetClassTest {
         assertThat(targetClass.substringBetween("abc", "a", "c")).isEqualTo(arrayOf("b"))
         assertThat(targetClass.substringBetween("abcabc", "a", "c")).isEqualTo(arrayOf("b", "b"))
     }
+
+    @Test
+    fun openAndCloseTagsOfDifferentSizes() {
+        assertThat(targetClass.substringBetween("a<start>middle<end>b", "<>", "{}"))
+            .isEqualTo(null)
+        assertThat(targetClass.substringBetween("a<start>middle<end>b", "<start>", "{}"))
+            .isEqualTo(null)
+        assertThat(targetClass.substringBetween("a<start>middle<end>b", "{}}", "<end>"))
+            .isEqualTo(null)
+        assertThat(targetClass.substringBetween("a<start>middle<end>b", "<start>", "<end>"))
+            .isEqualTo(arrayOf("middle"))
+        assertThat(targetClass.substringBetween("a<st>mid<en>b<st>mid2<en>", "<st>", "<en>"))
+            .isEqualTo(arrayOf("mid", "mid2"))
+    }
 }
