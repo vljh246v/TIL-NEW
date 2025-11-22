@@ -30,6 +30,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     implementation("org.springframework.retry:spring-retry:2.0.12")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.3.0")
 }
 
 kotlin {
