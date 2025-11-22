@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 class ChaosController {
 
     private val logger = LoggerFactory.getLogger(this::class.java)
-    
+
     // 요청 횟수 카운팅을 위한 변수
     private val requestCounter = AtomicInteger(0)
 
@@ -61,7 +61,7 @@ class ChaosController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body("찾을 수 없는 리소스입니다.")
     }
-    
+
     /**
      * 테스트 끝날 때 카운터 초기화용
      */
