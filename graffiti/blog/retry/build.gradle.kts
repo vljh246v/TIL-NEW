@@ -9,6 +9,8 @@ group = "com.blog"
 version = "0.0.1-SNAPSHOT"
 description = "retry"
 
+
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
@@ -26,6 +28,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    implementation("org.springframework.retry:spring-retry:2.0.12")
 }
 
 kotlin {
