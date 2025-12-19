@@ -29,7 +29,7 @@ public class SystemTerminationConfig {
 
     @Bean
     public Job systemTerminationJob() {
-        return new JobBuilder("systemTerminationJob", jobRepository)
+        return new JobBuilder("systemTerminationSimulationJob", jobRepository)
                 .start(enterWorldStep())
                 .next(meetNPCStep())
                 .next(defeatProcessStep())
